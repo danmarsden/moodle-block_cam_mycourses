@@ -24,3 +24,11 @@
  */
 
 $string['pluginname'] = 'My courses';
+$string['categorysettings'] = 'Category settings';
+$string['display'] = 'Display';
+$string['cascade'] = 'Cascade';
+$string['enrolled'] = 'Enrolled';
+$string['detail'] = 'Detail';
+$string['full'] = 'Full';
+$string['listing'] = 'Listing';
+$string['settingssaved'] = 'Category settings saved';
