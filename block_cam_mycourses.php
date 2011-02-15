@@ -39,8 +39,9 @@ class block_cam_mycourses extends block_base {
 
     function get_content() {
         global $CFG;
-
+        require_once($CFG->dirroot.'/blocks/cam_mycourses/lib.php');
         $this->content = new stdClass;
+        $this->content->text = display_mycourses();
         $this->content->footer = '';
 
         return $this->content;
