@@ -101,6 +101,13 @@ function get_mycourse_category_content($category) {
         if ($category->config->display == 1) {
             //full listing
             ob_start();
+            foreach ($courses as $c) { //set last access var
+                if (isset($USER->lastcourseaccess[$c->id])) {
+                    $courses[$c->id]->lastaccess = $USER->lastcourseaccess[$c->id];
+                } else {
+                    $courses[$c->id]->lastaccess = 0;
+                }
+            }
             print_overview($courses);
             $return .= ob_get_contents();
             ob_end_clean();
