@@ -100,7 +100,6 @@ function get_mycourse_category_content($category) {
     if (!empty($courses)) {
         if ($category->config->display == 1) {
             //full listing
-            ob_start();
             foreach ($courses as $c) { //set last access var
                 if (isset($USER->lastcourseaccess[$c->id])) {
                     $courses[$c->id]->lastaccess = $USER->lastcourseaccess[$c->id];
@@ -108,9 +107,7 @@ function get_mycourse_category_content($category) {
                     $courses[$c->id]->lastaccess = 0;
                 }
             }
-            print_overview($courses);
-            $return .= ob_get_contents();
-            ob_end_clean();
+            $return .= mycourses_print_overview($courses);
         } elseif($category->config->display==2) {
             //show list only
             $return .= "<ul>";
@@ -298,4 +295,38 @@ function get_courses_by_categories($categories, $sort="c.sortorder ASC", $fields
         }
     }
     return $visiblecourses;
+}
+
+function mycourses_print_overview($courses) {
+    global $CFG, $USER, $DB, $OUTPUT;
+    $return = '';
+    $htmlarray = array();
+    if ($modules = $DB->get_records('modules')) {
+        foreach ($modules as $mod) {
+            if (file_exists(dirname(dirname(dirname(__FILE__))).'/mod/'.$mod->name.'/lib.php')) {
+                include_once(dirname(dirname(dirname(__FILE__))).'/mod/'.$mod->name.'/lib.php');
+                $fname = $mod->name.'_print_overview';
+                if (function_exists($fname)) {
+                    $fname($courses,$htmlarray);
+                }
+            }
+        }
+    }
+
+    foreach ($courses as $course) {
+        $return .= $OUTPUT->box_start('coursebox');
+        $attributes = array('title' => s($course->fullname));
+        if (empty($course->visible)) {
+            $attributes['class'] = 'dimmed';
+        }
+        $return .= $OUTPUT->heading(html_writer::link(
+            new moodle_url('/course/view.php', array('id' => $course->id)), format_string($course->fullname), $attributes), 3);
+        if (array_key_exists($course->id,$htmlarray)) {
+            foreach ($htmlarray[$course->id] as $modname => $html) {
+                $return .= $html;
+            }
+        }
+        $return .= $OUTPUT->box_end();
+    }
+    return $return;
 }
