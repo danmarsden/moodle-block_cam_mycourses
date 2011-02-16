@@ -340,15 +340,15 @@ function mycourses_print_overview($courses) {
             $gname = reset($groups)->name;
             $gname = substr($gname,strlen($gname)-24 ,22);
             $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
-            $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a></span>';
+            $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
             if (count($groups) > 1) {
-                $return .= "<ul>";
+                $return .= '<ul class="mycourse_grouplist">';
                 foreach ($groups as $group) {
                     $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
                     $gname = substr($group->name,strlen($group->name)-24 ,22);
                     $return .= '<li><a href="'.$groupurl.'">'.format_string($gname)."</a></li>";
                 }
-                $return .= "</ul>";
+                $return .= "</ul></span>";
             }
         }
         if (array_key_exists($course->id,$htmlarray)) {

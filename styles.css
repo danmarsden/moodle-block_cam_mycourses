@@ -1,3 +1,70 @@
-.block_cam_mycourses .mycourse_categories {float: left; width: 100px}
-.block_cam_mycourses .mycourse_categories .mycourse_category {background-color:#dcdcdc; font-size:large; display:block}
-.block_cam_mycourses .mycourse_content {margin-left: 110px;}
+/* My Courses Block
+-------------------------*/
+.block_cam_mycourses .mycourse_categories {
+    float:left;
+    width:120px;
+    margin-top:15px;
+}
+.block_cam_mycourses .mycourse_categories .mycourse_category {
+    font-size:0.9em;
+    display:block;
+    margin:0 0 2px;
+    padding:7px 0 6px 10px;
+    background:#EEEEEE;
+    border-top:1px solid #DDDDDD;
+    border-bottom:1px solid #DDDDDD;
+}
+.block_cam_mycourses .mycourse_categories .mycourse_category.selected {
+    background:#FFFFFF;
+    margin-right:-1px;
+}
+.block_cam_mycourses .content {
+    padding:0;
+    background:#FAFAFA;
+}
+.block_cam_mycourses .mycourse_content {
+    height:350px;
+    overflow:auto;
+    margin-left: 120px;
+    padding:21px 15px;
+    background:#FFFFFF;
+    border-left:1px solid #DDDDDD;
+}
+.block_cam_mycourses .mycourse_content .coursebox {
+    border:none;
+    margin:0 0 5px;
+    padding:0 0 10px;
+    position:relative;
+    -moz-border-radius:0;
+}
+.block_cam_mycourses .mycourse_content .coursebox h3 {
+    margin:0 0 10px;
+    padding:0 0 4px;
+    border-bottom:1px solid #DDDDDD;
+}
+.block_cam_mycourses .mycourse_content .mycourse_group {
+    float:right;
+    margin-top:-31px;
+}
+.block_cam_mycourses .mycourse_content .mycourse_grouplist {
+    visibility:hidden;
+    margin:0;
+    padding:2px;
+    position:absolute;
+    top:-10px;
+    right:0;
+    z-index:1;
+    background:#FFFFFF;
+    border:1px solid #DDDDDD;
+}
+.block_cam_mycourses .mycourse_content .mycourse_group:hover .mycourse_grouplist {
+    visibility:visible;
+}
+.block_cam_mycourses .mycourse_content .mycourse_grouplist li {
+    padding:5px 10px;
+    list-style:none;
+    text-align:center;
+}
+.block_cam_mycourses .mycourse_content ul.mycourse_grouplist li:hover {
+    background:#EEEEEE;
+}
