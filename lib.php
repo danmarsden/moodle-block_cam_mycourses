@@ -31,6 +31,9 @@ function display_mycourses() {
     if (is_null($categories)) {
         $categoriescnf = array();
         $config = get_config('block_cam_mycourses');
+        if (empty($config)) {
+            return '';
+        }
         foreach ($config as $name => $value) {
             $cid = (int)substr($name, strpos($name, '_')+1);
             $var = str_replace('_'.$cid, '', $name);
@@ -41,6 +44,9 @@ function display_mycourses() {
             if (empty($category->display)) {
                 unset($categoriescnf[$cid]);
             }
+        }
+        if (empty($categoriescnf)) {
+            return '';
         }
         //get full information on these categories
         $categories = $DB->get_records_select('course_categories', 'id IN('.implode(',', array_keys($categoriescnf)).')', array(),'sortorder');
