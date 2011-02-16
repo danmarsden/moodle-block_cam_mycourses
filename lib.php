@@ -335,12 +335,18 @@ function mycourses_print_overview($courses) {
             new moodle_url('/course/view.php', array('id' => $course->id)), format_string($course->fullname), $attributes), 3);
         $groups = groups_get_all_groups($course->id, $USER->id);
         //TODO: convert groups fullname to dates from lookup table.
+        $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
         if (!empty($groups)) {
-            $return .= '<span class="mycourse_group">'.format_string(reset($groups)->name).'</span>';
+            $gname = reset($groups)->name;
+            $gname = substr($gname,strlen($gname)-24 ,22);
+            $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
+            $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a></span>';
             if (count($groups) > 1) {
                 $return .= "<ul>";
                 foreach ($groups as $group) {
-                    $return .= "<li>".format_string($group->name)."</li>";
+                    $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
+                    $gname = substr($group->name,strlen($group->name)-24 ,22);
+                    $return .= '<li><a href="'.$groupurl.'">'.format_string($gname)."</a></li>";
                 }
                 $return .= "</ul>";
             }
