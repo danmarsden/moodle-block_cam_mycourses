@@ -28,12 +28,21 @@ require_once($CFG->dirroot.'/course/lib.php');
 require_login();
 $context = get_context_instance(CONTEXT_SYSTEM);
 require_capability('moodle/site:config', $context);
-$PAGE->set_url('/blocks/cam_mycourses/displaycategories.php');
-$PAGE->set_context($context);
-$PAGE->set_pagelayout('admin');
 
+$strcatsettings = get_string('categorysettings', 'block_cam_mycourses');
+$categoriesurl = new moodle_url('/blocks/cam_mycourses/displaycategories.php');
+$settingsurl = new moodle_url('/admin/settings.php?section=blocksettingcam_mycourses');
+
+$PAGE->set_url($categoriesurl);
+$PAGE->set_context($context);
+$PAGE->set_pagelayout('base');
+$PAGE->set_title($strcatsettings);
+$PAGE->set_heading($strcatsettings);
+
+$PAGE->navbar->add(get_string('blocks'));
+$PAGE->navbar->add(get_string('pluginname', 'block_cam_mycourses'), $settingsurl);
+$PAGE->navbar->add($strcatsettings, $categoriesurl);
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('categorysettings', 'block_cam_mycourses'));
 
 make_categories_list(&$list, &$parents);
 
