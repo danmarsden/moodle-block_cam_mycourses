@@ -321,6 +321,18 @@ function mycourses_print_overview($courses) {
         }
         $return .= $OUTPUT->heading(html_writer::link(
             new moodle_url('/course/view.php', array('id' => $course->id)), format_string($course->fullname), $attributes), 3);
+        $groups = groups_get_all_groups($course->id, $USER->id);
+        //TODO: convert groups fullname to dates from lookup table.
+        if (!empty($groups)) {
+            $return .= '<span class="mycourse_group">'.format_string(reset($groups)->name).'</span>';
+            if (count($groups) > 1) {
+                $return .= "<ul>";
+                foreach ($groups as $group) {
+                    $return .= "<li>".format_string($group->name)."</li>";
+                }
+                $return .= "</ul>";
+            }
+        }
         if (array_key_exists($course->id,$htmlarray)) {
             foreach ($htmlarray[$course->id] as $modname => $html) {
                 $return .= $html;
