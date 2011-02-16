@@ -38,7 +38,6 @@ echo $OUTPUT->heading(get_string('categorysettings', 'block_cam_mycourses'));
 make_categories_list(&$list, &$parents);
 
 if (data_submitted() && confirm_sesskey()) {
-    print_object($_POST);
     foreach ($list as $cid => $notused) {
         set_config('display_'.$cid, optional_param('display'.$cid, 0, PARAM_INT),'block_cam_mycourses');
         set_config('cascade_'.$cid, optional_param('cascade'.$cid, 0, PARAM_INT),'block_cam_mycourses');
@@ -101,13 +100,13 @@ function print_category_edit($category, $displaylist, $parentslist, $depth=-1, $
         $display = "display_".$category->id;
         $display = isset($config->$display) ? $config->$display : 0;
         $enrolled = "enrol_".$category->id;
-        $enrolled = isset($config->$enrolled) ? $config->$enrolled : 0;
+        $enrolled = isset($config->$enrolled) ? $config->$enrolled : false;
         $cascade = "cascade_".$category->id;
-        $cascade = isset($config->$cascade) ? $config->$cascade : 0;
+        $cascade = isset($config->$cascade) ? $config->$cascade : false;
 
         echo html_writer::tag('td', html_writer::select($options,'display'.$category->id, $display,array(0=>$str->no)));
-        echo html_writer::tag('td', html_writer::checkbox('cascade'.$category->id, $cascade));
-        echo html_writer::tag('td', html_writer::checkbox('enrolled'.$category->id, $enrolled));
+        echo html_writer::tag('td', html_writer::checkbox('cascade'.$category->id, 1, $cascade));
+        echo html_writer::tag('td', html_writer::checkbox('enrolled'.$category->id, 1, $enrolled));
 
         echo '</tr>';
     } else {
