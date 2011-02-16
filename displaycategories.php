@@ -99,8 +99,12 @@ function print_category_edit($category, $displaylist, $parentslist, $depth=-1, $
         echo format_string($category->name);
         echo '</td>';
         $display = "display_".$category->id;
+        $display = isset($config->$display) ? $config->$display : 0;
         $enrolled = "enrol_".$category->id;
+        $enrolled = isset($config->$enrolled) ? $config->$enrolled : 0;
         $cascade = "cascade_".$category->id;
+        $cascade = isset($config->$cascade) ? $config->$cascade : 0;
+
         echo html_writer::tag('td', html_writer::select($options,'display'.$category->id, $display,array(0=>$str->no)));
         echo html_writer::tag('td', html_writer::checkbox('cascade'.$category->id, $cascade));
         echo html_writer::tag('td', html_writer::checkbox('enrolled'.$category->id, $enrolled));
