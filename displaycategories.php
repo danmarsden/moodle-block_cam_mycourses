@@ -101,9 +101,9 @@ function print_category_edit($category, $displaylist, $parentslist, $depth=-1, $
         $display = "display_".$category->id;
         $enrolled = "enrol_".$category->id;
         $cascade = "cascade_".$category->id;
-        echo html_writer::tag('td', html_writer::select($options,'display'.$category->id, $config->$display,array(0=>$str->no)));
-        echo html_writer::tag('td', html_writer::checkbox('cascade'.$category->id, $config->$cascade));
-        echo html_writer::tag('td', html_writer::checkbox('enrolled'.$category->id, $config->$enrolled));
+        echo html_writer::tag('td', html_writer::select($options,'display'.$category->id, $display,array(0=>$str->no)));
+        echo html_writer::tag('td', html_writer::checkbox('cascade'.$category->id, $cascade));
+        echo html_writer::tag('td', html_writer::checkbox('enrolled'.$category->id, $enrolled));
 
         echo '</tr>';
     } else {
