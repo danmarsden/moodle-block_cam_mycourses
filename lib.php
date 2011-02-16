@@ -24,7 +24,7 @@
  */
 
 function display_mycourses() {
-    global $USER,$DB;
+    global $USER,$DB, $PAGE;
     static $categories = NULL;
     $return = '';
     //prepare content
@@ -48,14 +48,26 @@ function display_mycourses() {
             $categories[$cid]->config = $categoriescnf[$cid];
         }
     }
+    $currentcategory = optional_param('mycoursecat', '', PARAM_INT);
+    if (empty($currentcategory) || !isset($categories[$currentcategory])) {
+        $currentcategory = reset($categories); //get content from top category.
+    } else {
+        $currentcategory = $categories[$currentcategory];
+    }
+
     //now display content in block.
     $return .= '<div class="mycourse_categories">';
     foreach ($categories as $cid => $category) {
+        $url = new moodle_url($PAGE->url, array('mycoursecat'=>$cid));
         //TODO: neeed to put links on the category name to change which category is displayed.
-        $return .= '<span class="mycourse_category">'.$category->name.'</span>';
+        $return .= '<span class="mycourse_category';
+        if ($currentcategory->id == $cid) {
+            $return .= ' selected';
+        }
+        $return .= '"><a href="'.$url.'">'.$category->name.'</a></span>';
     }
     $return .= "</div>";
-    $currentcategory = reset($categories); //DEBUG - this should be obtained from somewhere like Session.
+
     $return .= '<div class="mycourse_content">';
     $return .= get_mycourse_category_content($currentcategory);
     $return .= '</div>';
