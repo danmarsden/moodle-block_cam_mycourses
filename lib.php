@@ -26,6 +26,7 @@
 function display_mycourses() {
     global $USER,$DB, $PAGE;
     static $categories = NULL;
+    static $categoriescnf = NULL;
     $return = '';
     //prepare content
     if (is_null($categories)) {
@@ -50,15 +51,13 @@ function display_mycourses() {
         }
         //get full information on these categories
         $categories = $DB->get_records_select('course_categories', 'id IN('.implode(',', array_keys($categoriescnf)).')', array(),'sortorder');
-        foreach ($categories as $cid => $category) {
-            $categories[$cid]->config = $categoriescnf[$cid];
-        }
     }
+
     $currentcategory = optional_param('mycoursecat', '', PARAM_INT);
     if (empty($currentcategory) || !isset($categories[$currentcategory])) {
-        $currentcategory = reset($categories); //get content from top category.
+        $currentcategory = reset($categories)->id; //get content from top category.
     } else {
-        $currentcategory = $categories[$currentcategory];
+        $currentcategory = $categories[$currentcategory]->id;
     }
 
     //now display content in block.
@@ -67,7 +66,7 @@ function display_mycourses() {
         $url = new moodle_url($PAGE->url, array('mycoursecat'=>$cid));
         //TODO: neeed to put links on the category name to change which category is displayed.
         $return .= '<span class="mycourse_category';
-        if ($currentcategory->id == $cid) {
+        if ($currentcategory == $cid) {
             $return .= ' selected';
         }
         $return .= '"><a href="'.$url.'">'.$category->name.'</a></span>';
@@ -75,48 +74,39 @@ function display_mycourses() {
     $return .= "</div>";
 
     $return .= '<div class="mycourse_content">';
-    $return .= get_mycourse_category_content($currentcategory);
+    $return .= get_mycourse_category_content($currentcategory, $categoriescnf[$currentcategory]->cascade,
+                                             $categoriescnf[$currentcategory]->enrol, $categoriescnf[$currentcategory]->display);
     $return .= '</div>';
     return $return;
 
 }
 
-function get_mycourse_category_content($category) {
+function get_mycourse_category_content($categoryid, $cascade, $enroll, $display) {
     global $USER, $CFG;
     $return = '';
-    $cascade = false;
     $courses = array();
-    if (!empty($category->config->cascade)) {
+    if (!empty($cascade)) {
         $cascade = true;
+    } else {
+        $cascade = false;
     }
 
-    if (!empty($category->config->enroll)) {
-        if ($cascade) {
-            $categories = get_child_categories($category->id);
-            $catid = implode(',', array_keys($categories));
-        } else {
-            $catid = $category->id;
+   $catids = array();
+   $catids[] = $categoryid;
+   if ($cascade) {
+        $categories = get_child_categories($categoryid);
+        foreach ($categories as $c) {
+            $catids[] = $c->id;
         }
-        $courses = enrol_get_users_courses_by_category($USER->id, $catid);
-    } else {
-        if ($cascade) {
-            //easy - only get a single category of courses.
-            $courses = get_courses($category->id);
-        } else {
-            //get all child categories
-            $categories = get_child_categories($category->id);
-            $catids = array();
-            $catids[] = $category->id;
-            foreach ($categories as $c) {
-                $catids[] = $c->id;
-            }
-            //now get courses for all these child categories.
-            $courses = get_courses_by_categories(implode(',',$catids));
-        }
+    }
 
+    if (!empty($enroll)) {
+        $courses = enrol_get_users_courses_by_category($USER->id, implode(',',$catids), false, 'modinfo');
+    } else {
+        $courses = get_courses_by_categories(implode(',',$catids));
     }
     if (!empty($courses)) {
-        if ($category->config->display == 1) {
+        if ($display == 1) {
             //full listing
             foreach ($courses as $c) { //set last access var
                 if (isset($USER->lastcourseaccess[$c->id])) {
@@ -126,7 +116,7 @@ function get_mycourse_category_content($category) {
                 }
             }
             $return .= mycourses_print_overview($courses);
-        } elseif($category->config->display==2) {
+        } elseif($display==2) {
             //show list only
             $return .= "<ul>";
             foreach ($courses as $course) {
