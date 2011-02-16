@@ -49,12 +49,12 @@ function display_mycourses() {
         }
     }
     //now display content in block.
+    $return .= '<div class="mycourse_categories">';
     foreach ($categories as $cid => $category) {
         //TODO: neeed to put links on the category name to change which category is displayed.
-        $return .= '<div class="mycourse_categories">';
         $return .= '<span class="mycourse_category">'.$category->name.'</span>';
-        $return .= "</div>";
     }
+    $return .= "</div>";
     $currentcategory = reset($categories); //DEBUG - this should be obtained from somewhere like Session.
     $return .= '<div class="mycourse_content">';
     $return .= get_mycourse_category_content($currentcategory);
