@@ -68,3 +68,6 @@
 .block_cam_mycourses .mycourse_content ul.mycourse_grouplist li:hover {
     background:#EEEEEE;
 }
+.block_cam_mycourses .mycourse_frame_hidden {
+    display:none;
+}

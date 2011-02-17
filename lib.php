@@ -83,7 +83,7 @@ function display_mycourses() {
 
         $PAGE->requires->js_init_call('M.blocks_cam_mycourses.init', array($CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='), false, $jsmodule);
 
-        $return .= '<object id="mycourseframe" class="mycourse_frame" type="text/html" data="'.$CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='.$currentcategory.'"></object>';
+        $return .= '<object id="mycourseframe'.$currentcategory.'" class="mycourse_frame" type="text/html" data="'.$CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='.$currentcategory.'"></object>';
     } else {
         $return .= get_mycourse_category_content($currentcategory, $categoriescnf[$currentcategory]->cascade,
                                                  $categoriescnf[$currentcategory]->enrol, $categoriescnf[$currentcategory]->display);
