@@ -333,7 +333,6 @@ function mycourses_print_overview($courses) {
             }
         }
     }
-
     foreach ($courses as $course) {
         $return .= $OUTPUT->box_start('coursebox');
         $attributes = array('title' => s($course->fullname));
@@ -342,19 +341,34 @@ function mycourses_print_overview($courses) {
         }
         $return .= $OUTPUT->heading(html_writer::link(
             new moodle_url('/course/view.php', array('id' => $course->id)), format_string($course->fullname), $attributes), 3);
-        $groups = groups_get_all_groups($course->id, $USER->id);
+        if (mycourses_custom_group_table()) {
+           $groups = cam_groups_get_all_groups($course->id, $USER->id);
+           if (!empty($groups)) {
+               $group1 = reset($groups);
+               $gname = userdate($group1->startdate). " - " . userdate($group1->enddate);
+           }
+
+        } else {
+           $groups = groups_get_all_groups($course->id, $USER->id);
+           if (!empty($groups)) {
+              $gname = reset($groups)->name;
+           }
+        }
         //TODO: convert groups fullname to dates from lookup table.
         $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
         if (!empty($groups)) {
-            $gname = reset($groups)->name;
-            $gname = substr($gname,strlen($gname)-24 ,22);
             $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
             $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
             if (count($groups) > 1) {
                 $return .= '<ul class="mycourse_grouplist">';
                 foreach ($groups as $group) {
                     $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
-                    $gname = substr($group->name,strlen($group->name)-24 ,22);
+                    if (mycourses_custom_group_table()) {
+                        $gname = userdate($group->startdate). " - " . userdate($group->enddate);
+                    } else {
+                        $gname = $group->name;
+                    }
+
                     $return .= '<li><a href="'.$groupurl.'">'.format_string($gname)."</a></li>";
                 }
                 $return .= "</ul></span>";
@@ -375,4 +389,56 @@ function mycourses_use_js_view() {
         return false;
     }
     return true;
+}
+
+function mycourses_custom_group_table() {
+    static $hascustomtable = NULL;
+    if (is_null($hascustomtable)) {
+        global $DB;
+        $dbman = $DB->get_manager();
+        $hascustomtable = $dbman->table_exists('block_mycourses_group_detail');
+    }
+    return $hascustomtable;
+}
+
+/**
+ * Gets array of all groups in a specified course.
+ *
+ * @param int $courseid The id of the course.
+ * @param mixed $userid optional user id or array of ids, returns only groups of the user.
+ * @param int $groupingid optional returns only groups in the specified grouping.
+ * @param string $fields
+ * @return array|bool Returns an array of the group objects or false if no records
+ * or an error occurred. (userid field returned if array in $userid)
+ */
+function cam_groups_get_all_groups($courseid, $userid=0, $groupingid=0, $fields='g.*, gd.startdate, gd.enddate') {
+    global $CFG, $DB;
+
+    if (empty($userid)) {
+        $userfrom  = "";
+        $userwhere = "";
+        $params = array();
+
+    } else {
+        list($usql, $params) = $DB->get_in_or_equal($userid);
+        $userfrom  = ", {groups_members} gm";
+        $userwhere = "AND g.id = gm.groupid AND gm.userid $usql";
+    }
+
+    if (!empty($groupingid)) {
+        $groupingfrom  = ", {groupings_groups} gg";
+        $groupingwhere = "AND g.id = gg.groupid AND gg.groupingid = ?";
+        $params[] = $groupingid;
+    } else {
+        $groupingfrom  = "";
+        $groupingwhere = "";
+    }
+
+    array_unshift($params, $courseid);
+
+    return $DB->get_records_sql("SELECT $fields
+                                   FROM {groups} g, {block_mycourses_group_detail} gd $userfrom $groupingfrom
+                                  WHERE g.courseid = ? AND gd.groupid = g.id
+                                  $userwhere $groupingwhere
+                               ORDER BY name ASC", $params);
 }
