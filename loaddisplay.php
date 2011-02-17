@@ -39,9 +39,10 @@ $enrolled = "enrol_".$id;
 $cascade = "cascade_".$id;
 echo $OUTPUT->header();
 if (!empty($config->$display) && isset($config->$enrolled) && isset($config->$cascade)) {
+    echo '<div class="block_cam_mycourses">';
     echo '<div class="mycourse_contentframe">';
     echo  get_mycourse_category_content($id, $config->$cascade, $config->$enrolled, $config->$display);
-    echo "</div>";
+    echo "</div></div>";
 
 }
 echo $OUTPUT->container_end_all(true);
