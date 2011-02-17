@@ -24,7 +24,7 @@
  */
 
 function display_mycourses() {
-    global $USER,$DB, $PAGE;
+    global $USER,$DB,$PAGE,$CFG;
     static $categories = NULL;
     static $categoriescnf = NULL;
     $return = '';
@@ -69,13 +69,26 @@ function display_mycourses() {
         if ($currentcategory == $cid) {
             $return .= ' selected';
         }
-        $return .= '"><a href="'.$url.'">'.$category->name.'</a></span>';
+        $return .= '"><a href="'.$url.'" id="category'.$category->id.'">'.$category->name.'</a></span>';
     }
     $return .= "</div>";
 
     $return .= '<div class="mycourse_content">';
-    $return .= get_mycourse_category_content($currentcategory, $categoriescnf[$currentcategory]->cascade,
-                                             $categoriescnf[$currentcategory]->enrol, $categoriescnf[$currentcategory]->display);
+    if (mycourses_use_js_view()) {
+        $jsmodule = array(
+            'name'     => 'blocks_cam_mycourses',
+            'fullpath' => '/blocks/cam_mycourses/module.js',
+            'requires' => array('node-base'),
+            'strings' => array());
+
+        $PAGE->requires->js_init_call('M.blocks_cam_mycourses.init', array($CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='), false, $jsmodule);
+
+        $return .= '<object id="mycourseframe" class="mycourse_frame" type="text/html" data="'.$CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='.$currentcategory.'"></object>';
+    } else {
+        $return .= get_mycourse_category_content($currentcategory, $categoriescnf[$currentcategory]->cascade,
+                                                 $categoriescnf[$currentcategory]->enrol, $categoriescnf[$currentcategory]->display);
+
+    }
     $return .= '</div>';
     return $return;
 
@@ -355,4 +368,11 @@ function mycourses_print_overview($courses) {
         $return .= $OUTPUT->box_end();
     }
     return $return;
+}
+
+function mycourses_use_js_view() {
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6')) {
+        return false;
+    }
+    return true;
 }
