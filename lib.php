@@ -341,37 +341,38 @@ function mycourses_print_overview($courses) {
         }
         $return .= $OUTPUT->heading(html_writer::link(
             new moodle_url('/course/view.php', array('id' => $course->id)), format_string($course->fullname), $attributes), 3);
-        if (mycourses_custom_group_table()) {
-           $groups = cam_groups_get_all_groups($course->id, $USER->id);
-           if (!empty($groups)) {
-               $group1 = reset($groups);
-               $gname = userdate($group1->startdate). " - " . userdate($group1->enddate);
-           }
+        if (!empty($course->groupmode)) { //only show groups if groupmode is set.
+            if (mycourses_custom_group_table()) {
+                $groups = cam_groups_get_all_groups($course->id, $USER->id);
+                if (!empty($groups)) {
+                    $group1 = reset($groups);
+                    $gname = userdate($group1->startdate). " - " . userdate($group1->enddate);
+               }
+            } else {
+               $groups = groups_get_all_groups($course->id, $USER->id);
+               if (!empty($groups)) {
+                  $gname = reset($groups)->name;
+               }
+            }
 
-        } else {
-           $groups = groups_get_all_groups($course->id, $USER->id);
-           if (!empty($groups)) {
-              $gname = reset($groups)->name;
-           }
-        }
-        //TODO: convert groups fullname to dates from lookup table.
-        $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
-        if (!empty($groups)) {
-            $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
-            $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
-            if (count($groups) > 1) {
-                $return .= '<ul class="mycourse_grouplist">';
-                foreach ($groups as $group) {
-                    $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
-                    if (mycourses_custom_group_table()) {
-                        $gname = userdate($group->startdate). " - " . userdate($group->enddate);
-                    } else {
-                        $gname = $group->name;
+            $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
+            if (!empty($groups)) {
+                $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
+                $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
+                if (count($groups) > 1) {
+                    $return .= '<ul class="mycourse_grouplist">';
+                    foreach ($groups as $group) {
+                        $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
+                        if (mycourses_custom_group_table()) {
+                            $gname = userdate($group->startdate). " - " . userdate($group->enddate);
+                        } else {
+                            $gname = $group->name;
+                        }
+
+                        $return .= '<li><a href="'.$groupurl.'">'.format_string($gname)."</a></li>";
                     }
-
-                    $return .= '<li><a href="'.$groupurl.'">'.format_string($gname)."</a></li>";
+                    $return .= "</ul></span>";
                 }
-                $return .= "</ul></span>";
             }
         }
         if (array_key_exists($course->id,$htmlarray)) {
