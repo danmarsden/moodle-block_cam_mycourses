@@ -12,6 +12,7 @@
     padding:7px 0 6px 10px;
     background:#EEEEEE;
     border-top:1px solid #DDDDDD;
+    border-left:1px solid #DDDDDD;
     border-bottom:1px solid #DDDDDD;
 }
 .block_cam_mycourses .mycourse_categories .mycourse_category.selected {
@@ -19,7 +20,7 @@
     margin-right:-1px;
 }
 .block_cam_mycourses .content {
-    padding:0;
+    padding:0 0 0 4px !important;
     background:#FAFAFA;
 }
 .block_cam_mycourses .mycourse_content {
@@ -30,7 +31,10 @@
     background:#FFFFFF;
     border-left:1px solid #DDDDDD;
 }
-
+.block_cam_mycourses .mycourse_contentframe {
+    padding:0;
+    background:transparent;
+}
 .block_cam_mycourses .mycourse_content .coursebox,
 .block_cam_mycourses .mycourse_contentframe .coursebox {
     border:none;
@@ -43,6 +47,7 @@
 .block_cam_mycourses .mycourse_contentframe .coursebox h3{
     margin:0 0 10px;
     padding:0 0 4px;
+    text-align:left;
     border-bottom:1px solid #DDDDDD;
 }
 .block_cam_mycourses .mycourse_content .mycourse_group,
@@ -76,6 +81,42 @@
 .block_cam_mycourses .mycourse_contentframe ul.mycourse_grouplist li:hover{
     background:#EEEEEE;
 }
+.block_cam_mycourses .mycourse_content object {
+    width:100%;
+    height:100%;
+}
+
+
+/* Object CSS
+-------------------------*/
+html {
+    background:transparent;
+}
+body.page-blocks-cam_mycourses-loaddisplay,
+body.page-blocks-cam_mycourses-loaddisplay #page,
+body.page-blocks-cam_mycourses-loaddisplay #page-content,
+body.page-blocks-cam_mycourses-loaddisplay .region-content {
+    margin:0;
+    padding:0;
+    background:transparent;
+}
+body.page-blocks-cam_mycourses-loaddisplay .region-content {
+
+}
+.block_cam_mycourses .mycourse_contentframe .coursebox .overview,
+.block_cam_mycourses .mycourse_contentframe .coursebox .assignment {
+    margin:0 0 15px
+}
+.block_cam_mycourses .mycourse_contentframe .coursebox .overview div,
+.block_cam_mycourses .mycourse_contentframe .coursebox .assignment div {
+    margin:3px 0 !important;
+}
+.block_cam_mycourses .mycourse_contentframe .coursebox .info {
+    float:none;
+    font-size:0.9em;
+    font-style:italic;
+}
+
 .block_cam_mycourses .mycourse_frame_hidden {
     display:none;
 }
