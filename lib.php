@@ -64,7 +64,6 @@ function display_mycourses() {
     $return .= '<div class="mycourse_categories">';
     foreach ($categories as $cid => $category) {
         $url = new moodle_url($PAGE->url, array('mycoursecat'=>$cid));
-        //TODO: neeed to put links on the category name to change which category is displayed.
         $return .= '<span class="mycourse_category';
         if ($currentcategory == $cid) {
             $return .= ' selected';
