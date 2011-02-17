@@ -63,7 +63,7 @@ class mycourse_categories_form extends moodleform {
             $str->cascade = get_string('cascade', 'block_cam_mycourses');
             $str->enrol = get_string('enrolled', 'block_cam_mycourses');
         }
-        $options = array(1=>$str->full, 2=>$str->listing);
+        $options = array(0=>$str->no, 1=>$str->full, 2=>$str->listing);
         if (!empty($category)) {
 
             if (!isset($category->context)) {
