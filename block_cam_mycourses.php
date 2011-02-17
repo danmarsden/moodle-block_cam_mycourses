@@ -30,7 +30,7 @@ class block_cam_mycourses extends block_base {
     }
 
     function applicable_formats() {
-        return array('all' => true);
+        return array('my' => true, 'site' => true);
     }
 
     function instance_allow_multiple() {
