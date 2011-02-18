@@ -31,32 +31,24 @@
     background:#FFFFFF;
     border-left:1px solid #DDDDDD;
 }
-.block_cam_mycourses .mycourse_contentframe {
-    padding:0;
-    background:transparent;
-}
-.block_cam_mycourses .mycourse_content .coursebox,
-.block_cam_mycourses .mycourse_contentframe .coursebox {
+.block_cam_mycourses .mycourse_content .coursebox {
     border:none;
     margin:0 0 5px;
     padding:0 0 10px;
     position:relative;
     -moz-border-radius:0;
 }
-.block_cam_mycourses .mycourse_content .coursebox h3,
-.block_cam_mycourses .mycourse_contentframe .coursebox h3{
+.block_cam_mycourses .mycourse_content .coursebox h3 {
     margin:0 0 10px;
     padding:0 0 4px;
     text-align:left;
     border-bottom:1px solid #DDDDDD;
 }
-.block_cam_mycourses .mycourse_content .mycourse_group,
-.block_cam_mycourses .mycourse_contentframe .mycourse_group {
+.block_cam_mycourses .mycourse_content .mycourse_group {
     float:right;
     margin-top:-31px;
 }
-.block_cam_mycourses .mycourse_content .mycourse_grouplist,
-.block_cam_mycourses .mycourse_contentframe .mycourse_grouplist{
+.block_cam_mycourses .mycourse_content .mycourse_grouplist {
     visibility:hidden;
     margin:0;
     padding:2px;
@@ -67,18 +59,15 @@
     background:#FFFFFF;
     border:1px solid #DDDDDD;
 }
-.block_cam_mycourses .mycourse_content .mycourse_group:hover .mycourse_grouplist,
-.block_cam_mycourses .mycourse_contentframe .mycourse_group:hover .mycourse_grouplist{
+.block_cam_mycourses .mycourse_content .mycourse_group:hover .mycourse_grouplist {
     visibility:visible;
 }
-.block_cam_mycourses .mycourse_content .mycourse_grouplist li,
-.block_cam_mycourses .mycourse_contentframe .mycourse_grouplist li{
+.block_cam_mycourses .mycourse_content .mycourse_grouplist li {
     padding:5px 10px;
     list-style:none;
     text-align:center;
 }
-.block_cam_mycourses .mycourse_content ul.mycourse_grouplist li:hover,
-.block_cam_mycourses .mycourse_contentframe ul.mycourse_grouplist li:hover{
+.block_cam_mycourses .mycourse_content ul.mycourse_grouplist li:hover {
     background:#EEEEEE;
 }
 .block_cam_mycourses .mycourse_content object {
@@ -102,19 +91,6 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 }
 body.page-blocks-cam_mycourses-loaddisplay .region-content {
 
-}
-.block_cam_mycourses .mycourse_contentframe .coursebox .overview,
-.block_cam_mycourses .mycourse_contentframe .coursebox .assignment {
-    margin:0 0 15px
-}
-.block_cam_mycourses .mycourse_contentframe .coursebox .overview div,
-.block_cam_mycourses .mycourse_contentframe .coursebox .assignment div {
-    margin:3px 0 !important;
-}
-.block_cam_mycourses .mycourse_contentframe .coursebox .info {
-    float:none;
-    font-size:0.9em;
-    font-style:italic;
 }
 
 .block_cam_mycourses .mycourse_frame_hidden {
