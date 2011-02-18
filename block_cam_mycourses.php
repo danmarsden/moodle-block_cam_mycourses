@@ -16,12 +16,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Form for editing HTML block instances.
+ * Cambridge My Courses Block.
  *
  * @package   block_cam_mycourses
  * @author    Dan Marsden <dan@danmarsden.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die;
 
 class block_cam_mycourses extends block_base {
 

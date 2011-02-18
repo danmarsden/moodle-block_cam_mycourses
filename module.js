@@ -3,7 +3,7 @@
  *
  * @package    blocks
  * @subpackage cam_mycourses
- * @author     Dan Marsden  {@link http://danmarsden.com}
+ * @author     Dan Marsden <dan@danmarsden.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

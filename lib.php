@@ -16,13 +16,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Form for editing HTML block instances.
+ * Block for displaying courses.
  *
  * @package   block_cam_mycourses
  * @author    Dan Marsden <dan@danmarsden.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
+//main function to get the content of the block.
 function display_mycourses() {
     global $USER,$DB,$PAGE,$CFG;
     static $categories = NULL;
@@ -79,20 +82,15 @@ function display_mycourses() {
             'fullpath' => '/blocks/cam_mycourses/module.js',
             'requires' => array('node-base','io-base'),
             'strings' => array());
-
         $PAGE->requires->js_init_call('M.blocks_cam_mycourses.init', array($CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='), false, $jsmodule);
-
-        //$return .= '<object id="mycourseframe'.$currentcategory.'" class="mycourse_frame" type="text/html" data="'.$CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='.$currentcategory.'">testtest</object>';
-    } //else {
+    }
     $return .= get_mycourse_category_content($currentcategory, $categoriescnf[$currentcategory]->cascade,
                                              $categoriescnf[$currentcategory]->enrol, $categoriescnf[$currentcategory]->display);
-
-    //}
     $return .= '</div>';
     return $return;
 
 }
-
+//displays the content for a given category.
 function get_mycourse_category_content($categoryid, $cascade, $enroll, $display) {
     global $USER, $CFG;
     $return = '';
@@ -142,7 +140,7 @@ function get_mycourse_category_content($categoryid, $cascade, $enroll, $display)
 }
 
 /**
- * Returns list of courses user is enrolled into.
+ * Returns list of courses user is enrolled into. - modified core function to allow search by categories.
  *
  * - $fields is an array of fieldnames to ADD
  *   so name the fields you really need, which will
@@ -255,7 +253,7 @@ function enrol_get_users_courses_by_category($userid, $catid, $onlyactive = fals
 }
 
 /**
- * Returns list of courses, for whole site, or category
+ * Returns list of courses given a list of category ids
  *
  * Returns list of courses, for whole site, or category
  * Important: Using c.* for fields is extremely expensive because
@@ -266,7 +264,7 @@ function enrol_get_users_courses_by_category($userid, $catid, $onlyactive = fals
  * @global object
  * @global object
  * @uses CONTEXT_COURSE
- * @param string|int $categoryid Either a category id or 'all' for everything
+ * @param string $categories 
  * @param string $sort A field and direction to sort by
  * @param string $fields The additional fields to return
  * @return array Array of courses
@@ -316,7 +314,7 @@ function get_courses_by_categories($categories, $sort="c.sortorder ASC", $fields
     }
     return $visiblecourses;
 }
-
+//Modified print_overview function to add display of group information.
 function mycourses_print_overview($courses) {
     global $CFG, $USER, $DB, $OUTPUT;
     $return = '';
@@ -402,6 +400,7 @@ function mycourses_custom_group_table() {
 }
 
 /**
+ * modified groups_get_all_groups function to return custom cambridge data.
  * Gets array of all groups in a specified course.
  *
  * @param int $courseid The id of the course.
