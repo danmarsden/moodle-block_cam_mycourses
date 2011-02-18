@@ -30,20 +30,14 @@ require_once('lib.php');
 $id    = required_param('id', PARAM_INT);    // Course Module ID, or
 
 require_login();
-$PAGE->set_url('/blocks/cam_mycourses/loaddisplay.php', array('id'=>$id));
 $PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
 
 $config = get_config('block_cam_mycourses');
 $display = "display_".$id;
 $enrolled = "enrol_".$id;
 $cascade = "cascade_".$id;
-echo $OUTPUT->header();
+
 if (!empty($config->$display) && isset($config->$enrolled) && isset($config->$cascade)) {
-    echo '<div class="block_cam_mycourses">';
-    echo '<div class="mycourse_contentframe">';
     echo  get_mycourse_category_content($id, $config->$cascade, $config->$enrolled, $config->$display);
-    echo "</div></div>";
 
 }
-echo $OUTPUT->container_end_all(true);
-echo "</body></html>";

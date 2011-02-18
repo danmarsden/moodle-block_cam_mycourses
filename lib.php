@@ -72,22 +72,22 @@ function display_mycourses() {
     }
     $return .= "</div>";
 
-    $return .= '<div class="mycourse_content">';
+    $return .= '<div id="mycourseframe'.$currentcategory.'" class="mycourse_content">';
     if (mycourses_use_js_view()) {
         $jsmodule = array(
             'name'     => 'blocks_cam_mycourses',
             'fullpath' => '/blocks/cam_mycourses/module.js',
-            'requires' => array('node-base'),
+            'requires' => array('node-base','io-base'),
             'strings' => array());
 
         $PAGE->requires->js_init_call('M.blocks_cam_mycourses.init', array($CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='), false, $jsmodule);
 
-        $return .= '<object id="mycourseframe'.$currentcategory.'" class="mycourse_frame" type="text/html" data="'.$CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='.$currentcategory.'"></object>';
-    } else {
-        $return .= get_mycourse_category_content($currentcategory, $categoriescnf[$currentcategory]->cascade,
-                                                 $categoriescnf[$currentcategory]->enrol, $categoriescnf[$currentcategory]->display);
+        //$return .= '<object id="mycourseframe'.$currentcategory.'" class="mycourse_frame" type="text/html" data="'.$CFG->wwwroot.'/blocks/cam_mycourses/loaddisplay.php?id='.$currentcategory.'">testtest</object>';
+    } //else {
+    $return .= get_mycourse_category_content($currentcategory, $categoriescnf[$currentcategory]->cascade,
+                                             $categoriescnf[$currentcategory]->enrol, $categoriescnf[$currentcategory]->display);
 
-    }
+    //}
     $return .= '</div>';
     return $return;
 

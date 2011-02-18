@@ -13,9 +13,8 @@ M.blocks_cam_mycourses.init = function(Y, url) {
     var handleClick = function(e) {
         // pass the event facade to the logger or console for inspection:
        //now change the location of the doc object to the new href
-       var frame = Y.one('.mycourse_frame');
+       var frame = Y.one('.mycourse_content');
        var newid = this.getAttribute('id').replace("category","");
-       //frame.setAttribute('data', url+newid);
        if (frame && frame.getAttribute('id').replace("mycourseframe","") !== newid) {
            frame.setAttribute('class', 'mycourse_frame_hidden');
        }
@@ -23,11 +22,18 @@ M.blocks_cam_mycourses.init = function(Y, url) {
         //first check if it exists and just needs to be displayed
        var existing = Y.one('#mycourseframe'+newid);
        if (existing) {
-           existing.setAttribute('class','mycourse_frame');
+           existing.setAttribute('class','mycourse_content');
        } else {
-           //create new frame
-           var newframe = Y.Node.create('<object id="mycourseframe'+newid+'" class="mycourse_frame" type="text/html" data="'+url+newid+'"></object>');
-           frame.get('parentNode').append(newframe);
+           //get content:
+           Y.on('io:complete', function(id, o) {
+               var existing = Y.one('#mycourseframe'+newid);
+               if (!existing) {
+                   var newframe = Y.Node.create('<div id="mycourseframe'+newid+'" class="mycourse_content">'+o.responseText+'</div>');
+                   frame.get('parentNode').append(newframe);
+               }
+           });
+           var request = Y.io(url+newid);
+           //create new div
        }
        var selectedcat = Y.one('.mycourse_categories .selected');
        selectedcat.removeClass('selected');
@@ -38,5 +44,4 @@ M.blocks_cam_mycourses.init = function(Y, url) {
 
     //elements can be targeted using selector syntax:
     Y.on("click", handleClick, ".mycourse_category a");
-
 }
