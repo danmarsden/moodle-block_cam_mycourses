@@ -93,6 +93,7 @@ function display_mycourses() {
 //displays the content for a given category.
 function get_mycourse_category_content($categoryid, $cascade, $enroll, $display) {
     global $USER, $CFG;
+    require_once($CFG->dirroot.'/course/lib.php');
     $return = '';
     $courses = array();
     if (!empty($cascade)) {
