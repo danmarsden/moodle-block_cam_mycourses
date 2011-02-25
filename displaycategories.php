@@ -56,6 +56,24 @@ if (data_submitted() && confirm_sesskey()) {
     echo $OUTPUT->notification(get_string('settingssaved','block_cam_mycourses'), 'notifysuccess');
 }
 
+echo html_writer::start_tag('div', array('id'=>'category-headers-container'));
+echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('category', 'block_cam_mycourses'))));
+echo get_string('category', 'block_cam_mycourses');
+echo html_writer::end_tag('div');
+echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('display', 'block_cam_mycourses'))));
+echo get_string('display', 'block_cam_mycourses');
+echo html_writer::end_tag('div');
+echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('detail', 'block_cam_mycourses'))));
+echo get_string('detail', 'block_cam_mycourses');
+echo html_writer::end_tag('div');
+echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('cascade', 'block_cam_mycourses'))));
+echo get_string('cascade', 'block_cam_mycourses');
+echo html_writer::end_tag('div');
+echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('enrolled', 'block_cam_mycourses'))));
+echo get_string('enrolled', 'block_cam_mycourses');
+echo html_writer::end_tag('div');
+echo html_writer::end_tag('div');
+
 $mform->display();
 
 echo $OUTPUT->footer();

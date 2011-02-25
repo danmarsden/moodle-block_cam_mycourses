@@ -25,6 +25,7 @@
 
 $string['pluginname'] = 'My courses';
 $string['categorysettings'] = 'Category settings';
+$string['category'] = 'Category';
 $string['display'] = 'Display';
 $string['cascade'] = 'Cascade';
 $string['enrolled'] = 'Enrolled';
