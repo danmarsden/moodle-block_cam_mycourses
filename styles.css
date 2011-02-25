@@ -117,15 +117,15 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	margin:0;	
 	padding:5px 0 5px 10px;
 }
-.path-blocks-cam_mycourses #category-headers-container #category-header-category {
+.path-blocks-cam_mycourses #category-headers-container .category-header-category {
 	width:240px;	
 }
-.path-blocks-cam_mycourses #category-headers-container #category-header-display {
+.path-blocks-cam_mycourses #category-headers-container .category-header-display {
 	width:80px;
 }
-.path-blocks-cam_mycourses #category-headers-container #category-header-cascade,
-.path-blocks-cam_mycourses #category-headers-container #category-header-enrolled {
-	width:60px;	
+.path-blocks-cam_mycourses #category-headers-container .category-header-cascade,
+.path-blocks-cam_mycourses #category-headers-container .category-header-enrolled {
+	width:70px;	
 }
 .path-blocks-cam_mycourses .mform {
 	width:auto;
