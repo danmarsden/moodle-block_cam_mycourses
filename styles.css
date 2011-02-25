@@ -96,3 +96,100 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 .block_cam_mycourses .mycourse_frame_hidden {
     display:none;
 }
+
+/* Settings CSS
+-------------------------*/
+
+.path-blocks-cam_mycourses #category-headers-container {
+	clear:both;
+	width:auto;
+	max-width:500px;
+	padding:0;
+	margin:0 auto;
+	border:1px solid #DDDDDD;
+	background:#DDDDDD;
+}
+.path-blocks-cam_mycourses #category-headers-container div {
+	float:left;
+	clear:none;
+	width:auto;
+	font-weight:bold;
+	margin:0;	
+	padding:5px 0 5px 10px;
+}
+.path-blocks-cam_mycourses #category-headers-container #category-header-category {
+	width:240px;	
+}
+.path-blocks-cam_mycourses #category-headers-container #category-header-display {
+	width:80px;
+}
+.path-blocks-cam_mycourses #category-headers-container #category-header-cascade,
+.path-blocks-cam_mycourses #category-headers-container #category-header-enrolled {
+	width:60px;	
+}
+.path-blocks-cam_mycourses .mform {
+	width:auto;
+	max-width:500px;
+	margin:0 auto;	
+	border:1px solid #DDDDDD;
+}
+.path-blocks-cam_mycourses .mform fieldset {
+	clear:both;
+	width:auto;
+	border:none;
+	max-width:500px;
+	padding:0;
+	margin:0 auto 0;
+}
+.path-blocks-cam_mycourses .mform fieldset .advancedbutton {
+	float:right;	
+}
+.path-blocks-cam_mycourses .mform fieldset legend {
+	float:left;
+	width:207px;
+	font-weight:normal;
+	white-space:normal;
+	margin:0;
+	padding:6px 10px;
+}
+.path-blocks-cam_mycourses .fcontainer {
+	float:left;	
+	margin: 0 !important;
+	padding:0 !important;
+}
+.path-blocks-cam_mycourses .fcontainer .fitem {
+	float:left;
+	clear:none;
+	width:auto;
+	margin:0;	
+	padding:6px 26px;
+}
+.path-blocks-cam_mycourses .fcontainer .fitem .fitemtitle,
+.path-blocks-cam_mycourses .fcontainer .fitem .felement {
+	width:100%;
+	float:none;
+	text-align:left;
+}
+.path-blocks-cam_mycourses .fcontainer .fitem .fitemtitle {
+	display:none;	
+}
+.path-blocks-cam_mycourses .fcontainer .fitem .felement {
+	clear:both;
+	margin:0;
+	veritcal-align:middle;
+}
+.path-blocks-cam_mycourses .fcontainer .fitem .fcheckbox {
+	padding-top:4px;	
+}
+.path-blocks-cam_mycourses .fitem fieldset.fgroup {
+	width:100%;	
+	margin-top:5px !important;
+	text-align:center !important;
+}
+.path-blocks-cam_mycourses .clear {
+	clear:both !important;
+	float:none !important;
+	margin:0 !important;
+	padding:0 !important;
+	line-height:0 !important;
+}

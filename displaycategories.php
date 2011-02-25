@@ -63,14 +63,13 @@ echo html_writer::end_tag('div');
 echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('display', 'block_cam_mycourses'))));
 echo get_string('display', 'block_cam_mycourses');
 echo html_writer::end_tag('div');
-echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('detail', 'block_cam_mycourses'))));
-echo get_string('detail', 'block_cam_mycourses');
-echo html_writer::end_tag('div');
 echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('cascade', 'block_cam_mycourses'))));
 echo get_string('cascade', 'block_cam_mycourses');
 echo html_writer::end_tag('div');
 echo html_writer::start_tag('div', array('id'=>'category-header-'.strtolower(get_string('enrolled', 'block_cam_mycourses'))));
 echo get_string('enrolled', 'block_cam_mycourses');
+echo html_writer::end_tag('div');
+echo html_writer::start_tag('div', array('class'=>'clear'));
 echo html_writer::end_tag('div');
 echo html_writer::end_tag('div');
 
