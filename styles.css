@@ -107,6 +107,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	padding:0;
 	margin:0 auto;
 	border:1px solid #DDDDDD;
+	border-bottom:none;
 	background:#DDDDDD;
 }
 .path-blocks-cam_mycourses #category-headers-container div {
@@ -114,23 +115,23 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	clear:none;
 	width:auto;
 	font-weight:bold;
-	margin:0;	
+	margin:0;
 	padding:5px 0 5px 10px;
 }
 .path-blocks-cam_mycourses #category-headers-container .category-header-category {
-	width:240px;	
+	width:240px;
 }
 .path-blocks-cam_mycourses #category-headers-container .category-header-display {
 	width:80px;
 }
 .path-blocks-cam_mycourses #category-headers-container .category-header-cascade,
 .path-blocks-cam_mycourses #category-headers-container .category-header-enrolled {
-	width:70px;	
+	width:70px;
 }
 .path-blocks-cam_mycourses .mform {
 	width:auto;
 	max-width:500px;
-	margin:0 auto;	
+	margin:0 auto;
 	border:1px solid #DDDDDD;
 }
 .path-blocks-cam_mycourses .mform fieldset {
@@ -142,7 +143,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	margin:0 auto 0;
 }
 .path-blocks-cam_mycourses .mform fieldset .advancedbutton {
-	float:right;	
+	float:right;
 }
 .path-blocks-cam_mycourses .mform fieldset legend {
 	float:left;
@@ -153,7 +154,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	padding:6px 10px;
 }
 .path-blocks-cam_mycourses .fcontainer {
-	float:left;	
+	float:left;
 	margin: 0 !important;
 	padding:0 !important;
 }
@@ -161,7 +162,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	float:left;
 	clear:none;
 	width:auto;
-	margin:0;	
+	margin:0;
 	padding:6px 26px;
 }
 .path-blocks-cam_mycourses .fcontainer .fitem .fitemtitle,
@@ -171,7 +172,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	text-align:left;
 }
 .path-blocks-cam_mycourses .fcontainer .fitem .fitemtitle {
-	display:none;	
+	display:none;
 }
 .path-blocks-cam_mycourses .fcontainer .fitem .felement {
 	clear:both;
@@ -179,10 +180,10 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	veritcal-align:middle;
 }
 .path-blocks-cam_mycourses .fcontainer .fitem .fcheckbox {
-	padding-top:4px;	
+	padding-top:4px;
 }
 .path-blocks-cam_mycourses .fitem fieldset.fgroup {
-	width:100%;	
+	width:100%;
 	margin-top:5px !important;
 	text-align:center !important;
 }
