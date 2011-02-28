@@ -320,6 +320,7 @@ function mycourses_print_overview($courses) {
     global $CFG, $USER, $DB, $OUTPUT;
     $return = '';
     $htmlarray = array();
+    $dateformat = "%e/%m/%Y";
     if ($modules = $DB->get_records('modules')) {
         foreach ($modules as $mod) {
             if (file_exists(dirname(dirname(dirname(__FILE__))).'/mod/'.$mod->name.'/lib.php')) {
@@ -344,7 +345,7 @@ function mycourses_print_overview($courses) {
                 $groups = cam_groups_get_all_groups($course->id, $USER->id);
                 if (!empty($groups)) {
                     $group1 = reset($groups);
-                    $gname = userdate($group1->startdate). " - " . userdate($group1->enddate);
+                    $gname = userdate($group1->startdate,$dateformat). " - " . userdate($group1->enddate,$dateformat);
                }
             } else {
                $groups = groups_get_all_groups($course->id, $USER->id);
@@ -362,7 +363,7 @@ function mycourses_print_overview($courses) {
                     foreach ($groups as $group) {
                         $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
                         if (mycourses_custom_group_table()) {
-                            $gname = userdate($group->startdate). " - " . userdate($group->enddate);
+                            $gname = userdate($group->startdate,$dateformat). " - " . userdate($group->enddate,$dateformat);
                         } else {
                             $gname = $group->name;
                         }
