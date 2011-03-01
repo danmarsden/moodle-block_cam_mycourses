@@ -119,14 +119,16 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	padding:5px 0 5px 10px;
 }
 .path-blocks-cam_mycourses #category-headers-container .category-header-category {
-	width:240px;
+	width:235px;
 }
 .path-blocks-cam_mycourses #category-headers-container .category-header-display {
 	width:80px;
 }
-.path-blocks-cam_mycourses #category-headers-container .category-header-cascade,
+.path-blocks-cam_mycourses #category-headers-container .category-header-cascade {
+	width:59px;
+}
 .path-blocks-cam_mycourses #category-headers-container .category-header-enrolled {
-	width:70px;
+	width:86px;
 }
 .path-blocks-cam_mycourses .mform {
 	width:auto;
@@ -151,7 +153,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	font-weight:normal;
 	white-space:normal;
 	margin:0;
-	padding:6px 10px;
+	padding:8px 10px;
 }
 .path-blocks-cam_mycourses .fcontainer {
 	float:left;
@@ -163,7 +165,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	clear:none;
 	width:auto;
 	margin:0;
-	padding:6px 26px;
+	padding:6px 24px;
 }
 .path-blocks-cam_mycourses .fcontainer .fitem .fitemtitle,
 .path-blocks-cam_mycourses .fcontainer .fitem .felement {
@@ -180,7 +182,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	veritcal-align:middle;
 }
 .path-blocks-cam_mycourses .fcontainer .fitem .fcheckbox {
-	padding-top:4px;
+	padding-top:5px;
 }
 .path-blocks-cam_mycourses .fitem fieldset.fgroup {
 	width:100%;
