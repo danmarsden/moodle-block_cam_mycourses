@@ -47,7 +47,7 @@ echo $OUTPUT->header();
 
 $mform = new mycourse_categories_form('');
 if (data_submitted() && confirm_sesskey()) {
-    make_categories_list(&$list, &$parents);
+    make_categories_list($list, $parents);
     foreach ($list as $cid => $notused) {
         set_config('display_'.$cid, optional_param('display'.$cid, 0, PARAM_INT),'block_cam_mycourses');
         set_config('cascade_'.$cid, optional_param('cascade'.$cid, 0, PARAM_INT),'block_cam_mycourses');
