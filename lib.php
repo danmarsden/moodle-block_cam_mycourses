@@ -102,14 +102,11 @@ function get_mycourse_category_content($categoryid, $cascade, $enroll, $display)
         $cascade = false;
     }
 
-   $catids = array();
-   $catids[] = $categoryid;
-   if ($cascade) {
-        $categories = get_child_categories($categoryid);
-        foreach ($categories as $c) {
-            $catids[] = $c->id;
-        }
+    $catids = array();
+    if ($cascade) {
+        $catids = recursive_get_child_categories($categoryid);
     }
+    $catids[] = $categoryid;
 
     if (!empty($enroll)) {
         $courses = enrol_get_users_courses_by_category($USER->id, $catids, false, 'modinfo');
@@ -444,4 +441,15 @@ function cam_groups_get_all_groups($courseid, $userid=0, $groupingid=0, $fields=
                                   WHERE g.courseid = ? AND gd.groupid = g.id
                                   $userwhere $groupingwhere
                                ORDER BY name ASC", $params);
+}
+
+function recursive_get_child_categories($categoryid) {
+    $catids = array();
+    $categories = get_child_categories($categoryid);
+    foreach ($categories as $c) {
+        $catids[] = $c->id;
+        $childcats = recursive_get_child_categories($c->id);
+        $catids = array_merge($catids, $childcats);
+    }
+    return $catids;
 }
