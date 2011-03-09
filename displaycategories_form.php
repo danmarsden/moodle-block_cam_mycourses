@@ -71,7 +71,7 @@ class mycourse_categories_form extends moodleform {
            // echo '<tr><td align="left" class="name">';
             $categoryprefix = '';
             for ($i=0; $i<$depth;$i++) {
-                $categoryprefix = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                $categoryprefix .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             }
             //echo '</td>';
             $display = "display_".$category->id;
