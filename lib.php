@@ -112,9 +112,9 @@ function get_mycourse_category_content($categoryid, $cascade, $enroll, $display)
     }
 
     if (!empty($enroll)) {
-        $courses = enrol_get_users_courses_by_category($USER->id, implode(',',$catids), false, 'modinfo');
+        $courses = enrol_get_users_courses_by_category($USER->id, $catids, false, 'modinfo');
     } else {
-        $courses = get_courses_by_categories(implode(',',$catids));
+        $courses = get_courses_by_categories($catids);
     }
     if (!empty($courses)) {
         if ($display == 1) {
@@ -213,6 +213,7 @@ function enrol_get_users_courses_by_category($userid, $catid, $onlyactive = fals
     $coursefields = 'c.' .join(',c.', $fields);
     list($ccselect, $ccjoin) = context_instance_preload_sql('c.id', CONTEXT_COURSE, 'ctx');
 
+    list($in_sql, $in_params) = $DB->get_in_or_equal($catid, SQL_PARAMS_NAMED);
     //note: we can not use DISTINCT + text fields due to Oracle and MS limitations, that is why we have the subselect there
     $sql = "SELECT $coursefields $ccselect
               FROM {course} c
@@ -222,10 +223,10 @@ function enrol_get_users_courses_by_category($userid, $catid, $onlyactive = fals
                  $subwhere
                    ) en ON (en.courseid = c.id)
            $ccjoin
-             WHERE c.category IN(:catid) AND c.id <> :siteid
+             WHERE c.category ".$in_sql." AND c.id <> :siteid
           $orderby";
     $params['userid']  = $userid;
-    $params['catid'] = $catid;
+    $params = array_merge($in_params, $params);
 
     $courses = $DB->get_records_sql($sql, $params);
 
@@ -277,7 +278,8 @@ function get_courses_by_categories($categories, $sort="c.sortorder ASC", $fields
     $params = array();
 
     if (!empty($categories)) {
-        $categoryselect = "WHERE c.category IN (".$categories.")";
+        list($in_sql, $params) = $DB->get_in_or_equal($categories);
+        $categoryselect = "WHERE c.category ".$in_sql;
     } else {
         $categoryselect = "";
     }
