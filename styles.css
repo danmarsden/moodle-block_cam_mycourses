@@ -3,7 +3,7 @@
 .block_cam_mycourses .mycourse_categories {
     float:left;
     width:120px;
-    margin-top:15px;
+    margin-top:5px;
 }
 .block_cam_mycourses .mycourse_categories .mycourse_category {
     font-size:0.9em;
@@ -30,6 +30,16 @@
     padding:21px 15px;
     background:#FFFFFF;
     border-left:1px solid #DDDDDD;
+}
+.block_cam_mycourses .mycourse_content ul {
+    margin-top:0;
+    width:95%;
+}
+.block_cam_mycourses .mycourse_content ul li {
+    float:left;
+    list-style-type:disc;
+    width:40%;
+    padding:0 25px 5px 0;
 }
 .block_cam_mycourses .mycourse_content .coursebox {
     border:none;
@@ -103,12 +113,12 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 .path-blocks-cam_mycourses #category-headers-container {
 	clear:both;
 	width:auto;
-	max-width:500px;
+	max-width:550px;
 	padding:0;
 	margin:0 auto;
 	border:1px solid #DDDDDD;
 	border-bottom:none;
-	background:#E1E1DF;
+	background-color:#E1E1DF;
 }
 .path-blocks-cam_mycourses #category-headers-container div {
 	float:left;
@@ -132,7 +142,7 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 }
 .path-blocks-cam_mycourses .mform {
 	width:auto;
-	max-width:500px;
+	max-width:550px;
 	margin:0 auto;
 	border:1px solid #DDDDDD;
 }
@@ -140,51 +150,61 @@ body.page-blocks-cam_mycourses-loaddisplay .region-content {
 	clear:both;
 	width:auto;
 	border:none;
-	max-width:500px;
+	border-bottom:1px solid #EEE;
+	max-width:100%;
+	*position:relative; /* IE7 Specific Hack */
 	padding:0;
-	margin:0 auto 0;
+	margin:0 auto 0 !important;
 }
 .path-blocks-cam_mycourses .mform fieldset .advancedbutton {
 	float:right;
+	clear:none !important;
 }
 .path-blocks-cam_mycourses .mform fieldset legend {
 	float:left;
-	width:207px;
+	width:205px !important;
+	*position:absolute; /* IE7 Specific Hack */
+	*top:0; /* IE7 Specific Hack */
+	*left:0; /* IE7 Specific Hack */
 	font-weight:normal;
 	white-space:normal;
-	margin:0;
-	padding:8px 10px;
+	margin:0 !important;
+	padding:6px 10px;
 }
-.path-blocks-cam_mycourses .fcontainer {
+.path-blocks-cam_mycourses div.fcontainer {
 	float:left;
+	clear:none !important;
 	margin: 0 !important;
 	padding:0 !important;
+	*margin-left:225px !important; /* IE7 Specific Hack */
 }
-.path-blocks-cam_mycourses .fcontainer .fitem {
+.path-blocks-cam_mycourses div.fcontainer div.fitem {
 	float:left;
 	clear:none;
 	width:auto;
 	margin:0;
-	padding:6px 24px;
+	padding:4px 24px;
 }
-.path-blocks-cam_mycourses .fcontainer .fitem .fitemtitle,
-.path-blocks-cam_mycourses .fcontainer .fitem .felement {
+.path-blocks-cam_mycourses div.fcontainer div.fitem div.fitemtitle,
+.path-blocks-cam_mycourses div.fcontainer div.fitem div.felement {
 	width:100%;
 	float:none;
 	text-align:left;
 }
-.path-blocks-cam_mycourses .fcontainer .fitem .fitemtitle {
+.path-blocks-cam_mycourses div.fcontainer div.fitem div.fitemtitle {
 	display:none;
+	visibility:none;
 }
-.path-blocks-cam_mycourses .fcontainer .fitem .felement {
+.path-blocks-cam_mycourses div.fcontainer div.fitem div.felement {
 	clear:both;
 	margin:0;
 	veritcal-align:middle;
 }
-.path-blocks-cam_mycourses .fcontainer .fitem .fcheckbox {
+.path-blocks-cam_mycourses div.fcontainer div.fitem div.fcheckbox {
 	padding-top:5px;
+	*padding-top:0px; /* IE7 Specific Hack */
 }
-.path-blocks-cam_mycourses .fitem fieldset.fgroup {
+.path-blocks-cam_mycourses div.fitem fieldset.fgroup {
 	width:100%;
 	margin-top:5px !important;
 	text-align:center !important;
