@@ -1,5 +1,8 @@
 /* My Courses Block
 -------------------------*/
+#region-main .block_cam_mycourses {
+    min-height:318px;
+}
 .block_cam_mycourses .mycourse_categories {
     float:left;
     width:120px;
@@ -24,7 +27,7 @@
     background:#FAFAFA;
 }
 .block_cam_mycourses .mycourse_content {
-    height:350px;
+    height:250px;
     overflow:auto;
     margin-left: 120px;
     padding:21px 15px;
