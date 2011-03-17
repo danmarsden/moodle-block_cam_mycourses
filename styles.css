@@ -25,9 +25,10 @@
 .block_cam_mycourses .content {
     padding:0 0 0 4px !important;
     background:#FAFAFA;
+    border:1px solid #DDD;
 }
 .block_cam_mycourses .mycourse_content {
-    height:250px;
+    height:235px;
     overflow:auto;
     margin-left: 120px;
     padding:10px 4px 10px 15px;
