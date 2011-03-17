@@ -6,6 +6,9 @@
 #region-main .block_cam_mycourses.block_with_controls {
     min-height:350px;
 }
+#region-main .block_cam_mycourses.hidden {
+    min-height:0px;
+}
 .block_cam_mycourses .mycourse_categories {
     float:left;
     width:120px;
