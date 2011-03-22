@@ -319,7 +319,11 @@ function mycourses_print_overview($courses) {
     global $CFG, $USER, $DB, $OUTPUT;
     $return = '';
     $htmlarray = array();
-    $dateformat = "%e/%m/%Y";
+    if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+        $dateformat = "%#d/%m/%Y";
+    } else {
+        $dateformat = "%e/%m/%Y";
+    }
     if ($modules = $DB->get_records('modules')) {
         foreach ($modules as $mod) {
             if (file_exists(dirname(dirname(dirname(__FILE__))).'/mod/'.$mod->name.'/lib.php')) {
