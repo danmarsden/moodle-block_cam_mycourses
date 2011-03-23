@@ -103,6 +103,12 @@
     height:100%;
 }
 
+.block_cam_mycourses .mycourse_content .mycourse_moduleoverview div {
+   display: block;
+}
+.block_cam_mycourses .mycourse_content .mycourse_moduleoverview div div {
+   display: inline;
+}
 
 /* Object CSS
 -------------------------*/

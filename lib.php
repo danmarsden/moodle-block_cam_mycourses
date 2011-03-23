@@ -381,7 +381,8 @@ function mycourses_print_overview($courses) {
         }
         if (array_key_exists($course->id,$htmlarray)) {
             foreach ($htmlarray[$course->id] as $modname => $html) {
-                $return .= $html;
+                $html = str_replace('<br />', ', ', $html); //strip out carriage returns
+                $return .= '<span class="mycourse_moduleoverview">'.$html."</span>";
             }
         }
         $return .= $OUTPUT->box_end();
