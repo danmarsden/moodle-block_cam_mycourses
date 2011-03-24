@@ -119,6 +119,14 @@
    display: inline;
 }
 
+.block_cam_mycourses .mycourse_content .mycourse_moduleoverview {
+    font-size: 0.9em;
+}
+.block_cam_mycourses .mycourse_content .mycourse_moduleoverview .details {
+    display: block;
+    color: silver;
+}
+
 /* Object CSS
 -------------------------*/
 html {
