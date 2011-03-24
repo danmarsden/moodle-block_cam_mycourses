@@ -347,8 +347,18 @@ function mycourses_print_overview($courses) {
             if (mycourses_custom_group_table()) {
                 $groups = cam_groups_get_all_groups($course->id, $USER->id);
                 if (!empty($groups)) {
-                    $group1 = reset($groups);
-                    $gname = userdate($group1->startdate,$dateformat). " - " . userdate($group1->enddate,$dateformat);
+                    //find current group
+                    $currentgroup = null;
+                    foreach ($groups as $group) {
+                        if ($group->startdate > time() && empty($currentgroup)) {
+                            $currentgroup = $group;
+                        }
+                    }
+                    if (empty($currentgroup)) {
+                        $currentgroup = end($groups);
+                        reset($groups);
+                    }
+                    $gname = userdate($currentgroup->startdate,$dateformat). " - " . userdate($currentgroup->enddate,$dateformat);
                }
             } else {
                $groups = groups_get_all_groups($course->id, $USER->id);
@@ -447,7 +457,7 @@ function cam_groups_get_all_groups($courseid, $userid=0, $groupingid=0, $fields=
                                    FROM {groups} g, {block_mycourses_group_detail} gd $userfrom $groupingfrom
                                   WHERE g.courseid = ? AND gd.groupid = g.id
                                   $userwhere $groupingwhere
-                               ORDER BY name ASC", $params);
+                               ORDER BY  gd.startdate ASC, gd.enddate ASC", $params);
 }
 
 function recursive_get_child_categories($categoryid) {
