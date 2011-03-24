@@ -59,9 +59,9 @@
     background: url([[pix:core|i/navigationitem]]) no-repeat 0 3px;
 }
 .block_cam_mycourses .mycourse_content .coursebox {
-
+    clear:both;
     border:none;
-    margin:0 0 5px;
+    margin:0 0 0;
     padding:0 0 10px;
     position:relative;
     -moz-border-radius:0;
