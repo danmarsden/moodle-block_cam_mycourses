@@ -37,6 +37,8 @@
     height:259px;
     overflow:auto;
     margin-left: 120px;
+    margin-right:-118px;
+    *margin-right:0;
     padding:14px 4px 10px 15px;
     background:#FFFFFF;
     border-left:1px solid #DDDDDD;
@@ -59,6 +61,7 @@
     -moz-border-radius:0;
 }
 .block_cam_mycourses .mycourse_content .coursebox h3 {
+    clear:both;
     margin:0 0 10px;
     padding:0 0 4px;
     text-align:left;
