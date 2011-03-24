@@ -1,11 +1,11 @@
 /* My Courses Block
 -------------------------*/
-#region-main .block_cam_mycourses {
+/*#region-main .block_cam_mycourses {
     min-height:320px;
 }
 #region-main .block_cam_mycourses.block_with_controls {
     min-height:350px;
-}
+}*/
 #region-main .block_cam_mycourses.hidden {
     min-height:0px;
 }
@@ -17,7 +17,7 @@
 .block_cam_mycourses .mycourse_categories .mycourse_category {
     font-size:0.9em;
     display:block;
-    margin:0 0 2px;
+    margin:0 0 1px;
     padding:7px 0 6px 10px;
     background:#EEEEEE;
     border-top:1px solid #DDDDDD;
@@ -27,33 +27,39 @@
 .block_cam_mycourses .mycourse_categories .mycourse_category.selected {
     background:#FFFFFF;
     margin-right:-1px;
+    position:relative;
+    *width:110px; /* IE7 Specific Hack */
 }
 .block_cam_mycourses .content {
+    height:250px;
+    overflow:hidden;
     padding:0 0 0 4px !important;
     background:#FAFAFA;
-    border:1px solid #DDD;
+    border-top:1px solid #DDDDDD !important;
 }
 .block_cam_mycourses .mycourse_content {
-    height:259px;
+    height:256px;
     overflow:auto;
     margin-left: 120px;
-    margin-right:-118px;
-    *margin-right:0;
-    padding:14px 4px 10px 15px;
+    margin-right:-120px;
+    *margin-right:0; /* IE7 Specific Hack */
+    padding:14px 4px 10px 10px;
     background:#FFFFFF;
     border-left:1px solid #DDDDDD;
 }
 .block_cam_mycourses .mycourse_content ul {
     margin-top:0;
-    width:95%;
 }
 .block_cam_mycourses .mycourse_content ul li {
     float:left;
-    position:relative;
     width:40%;
-    padding:0 25px 5px 0;
+    margin:0;
+    padding:0 25px 5px 15px;
+    list-style-type:none;
+    background: url([[pix:core|i/navigationitem]]) no-repeat 0 3px;
 }
 .block_cam_mycourses .mycourse_content .coursebox {
+
     border:none;
     margin:0 0 5px;
     padding:0 0 10px;
@@ -93,7 +99,7 @@
     visibility:visible;
 }
 .block_cam_mycourses .mycourse_content .mycourse_grouplist li {
-    width:200px;    
+    width:200px;   
     padding:5px 0;
     list-style:none;
     text-align:center;
