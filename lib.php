@@ -319,6 +319,24 @@ function mycourses_print_overview($courses, $enroll=false) {
     global $CFG, $USER, $DB, $OUTPUT;
     $return = '';
     $htmlarray = array();
+    //array of weekdays to replace
+    $weekdaysearch = array();
+    $weekdayreplace = array();
+    $weekdaysearch[] = get_string('monday', 'calendar').', ';
+    $weekdayreplace[] = '';
+    $weekdaysearch[] = get_string('tuesday', 'calendar').', ';
+    $weekdayreplace[] = '';
+    $weekdaysearch[] = get_string('wednesday', 'calendar').', ';
+    $weekdayreplace[] = '';
+    $weekdaysearch[] = get_string('thursday', 'calendar').', ';
+    $weekdayreplace[] = '';
+    $weekdaysearch[] = get_string('friday', 'calendar').', ';
+    $weekdayreplace[] = '';
+    $weekdaysearch[] = get_string('saturday', 'calendar').', ';
+    $weekdayreplace[] = '';
+    $weekdaysearch[] = get_string('sunday', 'calendar').', ';
+    $weekdayreplace[] = '';
+
     if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
         $dateformat = "%#d/%m/%Y";
     } else {
@@ -398,6 +416,8 @@ function mycourses_print_overview($courses, $enroll=false) {
         if (array_key_exists($course->id,$htmlarray)) {
             foreach ($htmlarray[$course->id] as $modname => $html) {
                 $html = str_replace('<br />', ', ', $html); //strip out carriage returns
+                //strip out weekday names from "info"
+                $html = str_ireplace($weekdaysearch,$weekdayreplace, $html);
                 $return .= '<span class="mycourse_moduleoverview">'.$html."</span>";
             }
         }
