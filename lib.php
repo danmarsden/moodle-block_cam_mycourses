@@ -123,7 +123,7 @@ function get_mycourse_category_content($categoryid, $cascade, $enroll, $display)
                     $courses[$c->id]->lastaccess = 0;
                 }
             }
-            $return .= mycourses_print_overview($courses);
+            $return .= mycourses_print_overview($courses, $enroll);
         } elseif($display==2) {
             //show list only
             $return .= "<ul>";
@@ -315,7 +315,7 @@ function get_courses_by_categories($categories, $sort="c.sortorder ASC", $fields
     return $visiblecourses;
 }
 //Modified print_overview function to add display of group information.
-function mycourses_print_overview($courses) {
+function mycourses_print_overview($courses, $enroll=false) {
     global $CFG, $USER, $DB, $OUTPUT;
     $return = '';
     $htmlarray = array();
@@ -343,6 +343,7 @@ function mycourses_print_overview($courses) {
         }
         $return .= $OUTPUT->heading(html_writer::link(
             new moodle_url('/course/view.php', array('id' => $course->id)), format_string($course->fullname), $attributes), 3);
+        $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
         if (!empty($course->groupmode)) { //only show groups if groupmode is set.
             if (mycourses_custom_group_table()) {
                 $groups = cam_groups_get_all_groups($course->id, $USER->id);
@@ -359,7 +360,7 @@ function mycourses_print_overview($courses) {
                         reset($groups);
                     }
                     $gname = userdate($currentgroup->startdate,$dateformat). " - " . userdate($currentgroup->enddate,$dateformat);
-               }
+                }
             } else {
                $groups = groups_get_all_groups($course->id, $USER->id);
                if (!empty($groups)) {
@@ -367,7 +368,6 @@ function mycourses_print_overview($courses) {
                }
             }
 
-            $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
             if (!empty($groups)) {
                 $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
                 if (count($groups) > 1) {
@@ -387,7 +387,13 @@ function mycourses_print_overview($courses) {
                 } else {
                     $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
                 }
+            } elseif ($enroll) {
+                //user is enrolled in this course, so show a link to view participants.
+                $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.get_string('participantslist').'</a></span>';
             }
+        } elseif ($enroll) {
+            //user is enrolled in this course, so show a link to view participants.
+            $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.get_string('participantslist').'</a></span>';
         }
         if (array_key_exists($course->id,$htmlarray)) {
             foreach ($htmlarray[$course->id] as $modname => $html) {
