@@ -1,11 +1,5 @@
 /* My Courses Block
 -------------------------*/
-/*#region-main .block_cam_mycourses {
-    min-height:320px;
-}
-#region-main .block_cam_mycourses.block_with_controls {
-    min-height:350px;
-}*/
 #region-main .block_cam_mycourses.hidden {
     min-height:0px;
 }
@@ -68,15 +62,15 @@
 }
 .block_cam_mycourses .mycourse_content .coursebox h3 {
     clear:both;
-    margin:0 0 10px;
-    padding:0 0 4px;
+    margin:0 0 0;
+    padding:0 0 0;
     text-align:left;
     border-bottom:1px solid #DDDDDD;
 }
 .block_cam_mycourses .mycourse_content .mycourse_group,
 .block_cam_mycourses .mycourse_content .mycourse_group_list {
     float:right;
-    margin-top:-31px;
+    margin-top:-17px;
     padding-right: 17px;
 }
 .block_cam_mycourses .mycourse_content .mycourse_group_list {
@@ -84,11 +78,11 @@
 }
 .block_cam_mycourses .mycourse_content .mycourse_grouplist {
     visibility:hidden;
-    width:200px;
+    width:180px;
     margin:0;
     padding:2px;
     position:absolute;
-    top:-10px;
+    top:-11px;
     right:0;
     z-index:1;
     background:#FFFFFF;
@@ -99,10 +93,12 @@
     visibility:visible;
 }
 .block_cam_mycourses .mycourse_content .mycourse_grouplist li {
-    width:200px;   
+    width:180px;   
     padding:5px 0;
     list-style:none;
     text-align:center;
+    list-style-type:none;
+    background:transparent;
 }
 .block_cam_mycourses .mycourse_content ul.mycourse_grouplist li:hover {
     background:#EEEEEE;

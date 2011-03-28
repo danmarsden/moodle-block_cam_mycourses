@@ -403,7 +403,7 @@ function mycourses_print_overview($courses, $enroll=false) {
                     }
                     $return .= "</ul></span>";
                 } else {
-                    $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
+                    $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a></span>';
                 }
             } elseif ($enroll) {
                 //user is enrolled in this course, so show a link to view participants.
