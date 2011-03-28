@@ -85,6 +85,8 @@
     top:-11px;
     right:0;
     z-index:1;
+    overflow:auto;
+    height:100px;
     background:#FFFFFF;
     border:1px solid #DDDDDD;
 }
@@ -93,7 +95,7 @@
     visibility:visible;
 }
 .block_cam_mycourses .mycourse_content .mycourse_grouplist li {
-    width:180px;   
+    width:100%;   
     padding:5px 0;
     list-style:none;
     text-align:center;
