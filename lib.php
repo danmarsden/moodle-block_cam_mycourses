@@ -128,7 +128,7 @@ function get_mycourse_category_content($categoryid, $cascade, $enroll, $display)
             //show list only
             $return .= "<ul>";
             foreach ($courses as $course) {
-                $return .= '<li><a href="'.$CFG->wwwroot.'/course/index.php?id='.$course->id.'">'.$course->fullname.'</a></li>';
+                $return .= '<li><a href="'.$CFG->wwwroot.'/course/view.php?id='.$course->id.'">'.$course->fullname.'</a></li>';
             }
             $return .="</ul>";
         }
