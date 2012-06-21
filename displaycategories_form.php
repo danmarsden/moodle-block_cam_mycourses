@@ -34,7 +34,7 @@ class mycourse_categories_form extends moodleform {
     function definition() {
         $mform =& $this->_form;
 
-        make_categories_list(&$list, &$parents);
+        make_categories_list($list, $parents);
         $this->print_category_edit(NULL, $list, $parents);
         $this->add_action_buttons();
     }
