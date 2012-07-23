@@ -30,7 +30,7 @@ require_once('lib.php');
 $id    = required_param('id', PARAM_INT);    // Course Module ID, or
 
 require_login();
-$PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
+$PAGE->set_context(context_system::instance());
 
 $config = get_config('block_cam_mycourses');
 $display = "display_".$id;

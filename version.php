@@ -20,7 +20,7 @@
   * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
   */
 $plugin->version = 2011021803;
-$plugin->requires = 2010122500;
+$plugin->requires = 2011120500;
 $plugin->component = 'block_cam_mycourses';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.0.1';
+$plugin->release   = '1.0.2';

@@ -24,6 +24,9 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+define('CAM_MYCOURSES_DISPLAYFULL', 1);
+define('CAM_MYCOURSES_DISPLAYLIST', 2);
+define('CAM_MYCOURSES_DISPLAYFULLENROL', 3);
 
 //main function to get the content of the block.
 function display_mycourses() {
@@ -114,7 +117,7 @@ function get_mycourse_category_content($categoryid, $cascade, $enroll, $display)
         $courses = get_courses_by_categories($catids);
     }
     if (!empty($courses)) {
-        if ($display == 1) {
+        if ($display == CAM_MYCOURSES_DISPLAYFULL or $display == CAM_MYCOURSES_DISPLAYFULLENROL) {
             //full listing
             foreach ($courses as $c) { //set last access var
                 if (isset($USER->lastcourseaccess[$c->id])) {
@@ -123,8 +126,8 @@ function get_mycourse_category_content($categoryid, $cascade, $enroll, $display)
                     $courses[$c->id]->lastaccess = 0;
                 }
             }
-            $return .= mycourses_print_overview($courses, $enroll);
-        } elseif($display==2) {
+            $return .= mycourses_print_overview($courses, $enroll, $display);
+        } elseif ($display == CAM_MYCOURSES_DISPLAYLIST) {
             //show list only
             $return .= "<ul>";
             foreach ($courses as $course) {
@@ -315,7 +318,7 @@ function get_courses_by_categories($categories, $sort="c.sortorder ASC", $fields
     return $visiblecourses;
 }
 //Modified print_overview function to add display of group information.
-function mycourses_print_overview($courses, $enroll=false) {
+function mycourses_print_overview($courses, $enroll=false, $display = CAM_MYCOURSES_DISPLAYFULL) {
     global $CFG, $USER, $DB, $OUTPUT;
     $return = '';
     $htmlarray = array();
@@ -361,64 +364,67 @@ function mycourses_print_overview($courses, $enroll=false) {
         }
         $return .= $OUTPUT->heading(html_writer::link(
             new moodle_url('/course/view.php', array('id' => $course->id)), format_string($course->fullname), $attributes), 3);
-        $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
-        if (!empty($course->groupmode)) { //only show groups if groupmode is set.
-            if (mycourses_custom_group_table()) {
-                $groups = cam_groups_get_all_groups($course->id, $USER->id);
-                if (!empty($groups)) {
-                    //find current group
-                    $currentgroup = null;
-                    foreach ($groups as $group) {
-                        if ($group->startdate > time() && empty($currentgroup)) {
-                            $currentgroup = $group;
+        if ($display == CAM_MYCOURSES_DISPLAYFULL or
+            (CAM_MYCOURSES_DISPLAYFULLENROL && is_enrolled(context_course::instance($course->id)))) {
+            $groupurl = new moodle_url('/user/index.php', array('id'=>$course->id));
+            if (!empty($course->groupmode)) { //only show groups if groupmode is set.
+                if (mycourses_custom_group_table()) {
+                    $groups = cam_groups_get_all_groups($course->id, $USER->id);
+                    if (!empty($groups)) {
+                        //find current group
+                        $currentgroup = null;
+                        foreach ($groups as $group) {
+                            if ($group->startdate > time() && empty($currentgroup)) {
+                                $currentgroup = $group;
+                            }
                         }
-                    }
-                    if (empty($currentgroup)) {
-                        $currentgroup = end($groups);
-                        reset($groups);
-                    }
-                    $gname = userdate($currentgroup->startdate,$dateformat). " - " . userdate($currentgroup->enddate,$dateformat);
-                }
-            } else {
-               $groups = groups_get_all_groups($course->id, $USER->id);
-               if (!empty($groups)) {
-                  $gname = reset($groups)->name;
-               }
-            }
-
-            if (!empty($groups)) {
-                $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
-                if (count($groups) > 1) {
-                    $return .= '<span class="mycourse_group_list"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
-                    $return .= '<ul class="mycourse_grouplist">';
-                    foreach ($groups as $group) {
-                        $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
-                        if (mycourses_custom_group_table()) {
-                            $gname = userdate($group->startdate,$dateformat). " - " . userdate($group->enddate,$dateformat);
-                        } else {
-                            $gname = $group->name;
+                        if (empty($currentgroup)) {
+                            $currentgroup = end($groups);
+                            reset($groups);
                         }
-
-                        $return .= '<li><a href="'.$groupurl.'">'.format_string($gname)."</a></li>";
+                        $gname = userdate($currentgroup->startdate,$dateformat). " - " . userdate($currentgroup->enddate,$dateformat);
                     }
-                    $return .= "</ul></span>";
                 } else {
-                    $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a></span>';
+                   $groups = groups_get_all_groups($course->id, $USER->id);
+                   if (!empty($groups)) {
+                      $gname = reset($groups)->name;
+                   }
+                }
+
+                if (!empty($groups)) {
+                    $groupurl = new moodle_url($groupurl, array('group'=>reset($groups)->id));
+                    if (count($groups) > 1) {
+                        $return .= '<span class="mycourse_group_list"><a href="'.$groupurl.'">'.format_string($gname).'</a>';
+                        $return .= '<ul class="mycourse_grouplist">';
+                        foreach ($groups as $group) {
+                            $groupurl = new moodle_url($groupurl, array('group'=>$group->id));
+                            if (mycourses_custom_group_table()) {
+                                $gname = userdate($group->startdate,$dateformat). " - " . userdate($group->enddate,$dateformat);
+                            } else {
+                                $gname = $group->name;
+                            }
+
+                            $return .= '<li><a href="'.$groupurl.'">'.format_string($gname)."</a></li>";
+                        }
+                        $return .= "</ul></span>";
+                    } else {
+                        $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.format_string($gname).'</a></span>';
+                    }
+                } elseif ($enroll) {
+                    //user is enrolled in this course, so show a link to view participants.
+                    $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.get_string('participantslist').'</a></span>';
                 }
             } elseif ($enroll) {
                 //user is enrolled in this course, so show a link to view participants.
                 $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.get_string('participantslist').'</a></span>';
             }
-        } elseif ($enroll) {
-            //user is enrolled in this course, so show a link to view participants.
-            $return .= '<span class="mycourse_group"><a href="'.$groupurl.'">'.get_string('participantslist').'</a></span>';
-        }
-        if (array_key_exists($course->id,$htmlarray)) {
-            foreach ($htmlarray[$course->id] as $modname => $html) {
-                $html = str_replace('<br />', ', ', $html); //strip out carriage returns
-                //strip out weekday names from "info"
-                $html = str_ireplace($weekdaysearch,$weekdayreplace, $html);
-                $return .= '<span class="mycourse_moduleoverview">'.$html."</span>";
+            if (array_key_exists($course->id,$htmlarray)) {
+                foreach ($htmlarray[$course->id] as $modname => $html) {
+                    $html = str_replace('<br />', ', ', $html); //strip out carriage returns
+                    //strip out weekday names from "info"
+                    $html = str_ireplace($weekdaysearch,$weekdayreplace, $html);
+                    $return .= '<span class="mycourse_moduleoverview">'.$html."</span>";
+                }
             }
         }
         $return .= $OUTPUT->box_end();

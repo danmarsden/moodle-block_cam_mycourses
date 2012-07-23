@@ -24,10 +24,12 @@
  */
 require_once(dirname(dirname(__FILE__)) . '/../config.php');
 require_once($CFG->dirroot.'/course/lib.php');
-require_once('displaycategories_form.php');
+require_once($CFG->dirroot.'/blocks/cam_mycourses/displaycategories_form.php');
+require_once($CFG->dirroot.'/blocks/cam_mycourses/lib.php');
 
 require_login();
-$context = get_context_instance(CONTEXT_SYSTEM);
+$context = context_system::instance();
+
 require_capability('moodle/site:config', $context);
 
 $strcatsettings = get_string('categorysettings', 'block_cam_mycourses');
@@ -44,6 +46,8 @@ $PAGE->navbar->add(get_string('blocks'));
 $PAGE->navbar->add(get_string('pluginname', 'block_cam_mycourses'), $settingsurl);
 $PAGE->navbar->add($strcatsettings, $categoriesurl);
 echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('categorysettings', 'block_cam_mycourses'));
+echo $OUTPUT->box(get_string('categorysettings_desc', 'block_cam_mycourses'), 'generalbox boxaligncenter');
 
 $mform = new mycourse_categories_form('');
 if (data_submitted() && confirm_sesskey()) {

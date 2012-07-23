@@ -31,5 +31,15 @@ $string['cascade'] = 'Cascade';
 $string['enrolled'] = 'Enrolled';
 $string['detail'] = 'Detail';
 $string['full'] = 'Full';
+$string['fullif'] = 'Full if enrolled';
 $string['listing'] = 'Listing';
 $string['settingssaved'] = 'Category settings saved';
+$string['categorysettings_desc'] = '<p>The courses can be displayed in 3 different ways
+<ul>
+<li>Full: This displays the course with full overview information provided by modules inside the course such as Assignment due dates</li>
+<li>Listing: This displays a list of the courses inside this category with no extra information</li>
+<li>Full if enrolled: This displays the course with full overview information, if not enrolled in the listed course it will only show the course name.</li>
+</ul></p>
+<p>Cascade - This makes all courses within child categories to be displayed as if coming from the parent category</p>
+
+<p>Enrolled - If set then only courses that the user is enrolled in will be displayed.</p>';
