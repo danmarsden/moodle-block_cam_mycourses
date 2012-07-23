@@ -31,5 +31,6 @@ $string['cascade'] = 'Cascade';
 $string['enrolled'] = 'Enrolled';
 $string['detail'] = 'Detail';
 $string['full'] = 'Full';
+$string['fullif'] = 'Full if enrolled';
 $string['listing'] = 'Listing';
 $string['settingssaved'] = 'Category settings saved';

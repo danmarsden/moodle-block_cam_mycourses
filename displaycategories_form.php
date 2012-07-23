@@ -60,8 +60,12 @@ class mycourse_categories_form extends moodleform {
             $str->display = get_string('display', 'block_cam_mycourses');
             $str->cascade = get_string('cascade', 'block_cam_mycourses');
             $str->enrol = get_string('enrolled', 'block_cam_mycourses');
+            $str->fullif = get_string('fullif', 'block_cam_mycourses');
         }
-        $options = array(0=>$str->no, 1=>$str->full, 2=>$str->listing);
+        $options = array(0 => $str->no,
+                         CAM_MYCOURSES_DISPLAYFULL      => $str->full,
+                         CAM_MYCOURSES_DISPLAYFULLENROL => $str->fullif,
+                         CAM_MYCOURSES_DISPLAYLIST      => $str->listing);
         if (!empty($category)) {
 
             if (!isset($category->context)) {
@@ -92,6 +96,7 @@ class mycourse_categories_form extends moodleform {
                 $mform->disabledIf('cascade'.$category->id, 'cascade'.$parentid, 'checked');
                 $mform->disabledIf('enrolled'.$category->id, 'cascade'.$parentid, 'checked');
             }
+            $mform->disabledIf('enrolled'.$category->id, 'display'.$category->id, 'eq', 3);
         } else {
             $category->id = '0';
         }

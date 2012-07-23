@@ -24,7 +24,8 @@
  */
 require_once(dirname(dirname(__FILE__)) . '/../config.php');
 require_once($CFG->dirroot.'/course/lib.php');
-require_once('displaycategories_form.php');
+require_once($CFG->dirroot.'/blocks/cam_mycourses/displaycategories_form.php');
+require_once($CFG->dirroot.'/blocks/cam_mycourses/lib.php');
 
 require_login();
 $context = get_context_instance(CONTEXT_SYSTEM);

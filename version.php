@@ -23,4 +23,4 @@ $plugin->version = 2011021803;
 $plugin->requires = 2010122500;
 $plugin->component = 'block_cam_mycourses';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.0.1';
+$plugin->release   = '1.0.2';
