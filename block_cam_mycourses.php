@@ -39,6 +39,10 @@ class block_cam_mycourses extends block_base {
         return false;
     }
 
+    function has_config() {
+        return true;
+    }
+
     function get_content() {
         global $CFG;
         require_once($CFG->dirroot.'/blocks/cam_mycourses/lib.php');
