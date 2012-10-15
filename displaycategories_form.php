@@ -22,6 +22,7 @@
  * @package    blocks
  * @subpackage cam_mycourses
  * @author     Dan Marsden <dan@danmarsden.com>
+ * @copyright  2012 Catalyst IT
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

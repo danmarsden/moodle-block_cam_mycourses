@@ -1,6 +1,7 @@
 My Courses block - an alternative to the Course Overview block used on "My" Homepages.
 Written by Dan Marsden <dan@danmarsden.com>
 Developed for the School of Clinical medicine, University of Cambridge
+Copyright 2012 Catalyst IT
 
 This block allows the site admin to configure a list of course categories that appear as "tabs" on the left of the block.
 
